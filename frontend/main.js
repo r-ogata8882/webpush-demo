@@ -12,7 +12,9 @@ async function registerServiceWorker() {
     return null;
   }
 
-  const reg = await navigator.serviceWorker.register('sw.js');
+  // GitHub Pages（/<repo>/）対応: 相対パスとスコープを明示
+  // const reg = await navigator.serviceWorker.register('sw.js');
+  const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
   statusEl.textContent = 'Service Worker 登録完了';
   return reg;
 }
@@ -57,7 +59,15 @@ document.getElementById('enable-push').addEventListener('click', async () => {
 // 通知を無効化
 document.getElementById('disable-push').addEventListener('click', async () => {
   try {
-    const registration = await navigator.serviceWorker.ready;
+    // ready の代わりに getRegistration() を使用（GitHub Pages 対応）
+    // const registration = await navigator.serviceWorker.ready;
+    const registration = await navigator.serviceWorker.getRegistration();
+    if (!registration) {
+      console.log('Service Workerが見つかりません');
+      document.getElementById('status').textContent = 'SW未登録です';
+      return;
+    }
+
     const subscription = await registration.pushManager.getSubscription();
     if (subscription) {
       await subscription.unsubscribe();
@@ -68,11 +78,14 @@ document.getElementById('disable-push').addEventListener('click', async () => {
       document.getElementById('status').textContent = '通知は既に無効です';
     }
 
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    for (const reg of registrations) {
-      await reg.unregister();
-      console.log('Service Workerを登録解除しました');
-    }
+    // SW自体も解除する場合（任意）
+    // const registrations = await navigator.serviceWorker.getRegistrations();
+    // for (const reg of registrations) {
+    //   await reg.unregister();
+    //   console.log('Service Workerを登録解除しました');
+    // }
+    await registration.unregister();
+    console.log('Service Workerを登録解除しました');
   } catch (error) {
     console.error('無効化エラー:', error);
     document.getElementById('status').textContent = '無効化に失敗しました';
