@@ -1,5 +1,7 @@
-const serverUrl = "http://localhost:3000";  // Nodeサーバー
-// const publicKey = "BGJmvus3pliirrSTNNCJOaw3VG9ZSZz7KxUfKIA4uYu5V0PbVVggP8sX22LsPizapfOESZBy6fhcKearwq9R9_I";
+// ローカルNodeサーバーのURL
+// const serverUrl = "http://localhost:3000"; 
+// RenderサーバーのURL
+const servetUrl = "https://webpush-demo.onrender.com" 
 
 const statusEl = document.getElementById('status');
 
