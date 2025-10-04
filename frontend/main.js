@@ -1,7 +1,7 @@
 // ローカルNodeサーバーのURL
 // const serverUrl = "http://localhost:3000"; 
 // RenderサーバーのURL
-const servetUrl = "https://webpush-demo.onrender.com" 
+const serverUrl = "https://webpush-demo.onrender.com" 
 
 const statusEl = document.getElementById('status');
 
