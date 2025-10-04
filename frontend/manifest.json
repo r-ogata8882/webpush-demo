@@ -2,7 +2,7 @@
   "name": "Push通知テストアプリ",
   "short_name": "PushTest",
   "description": "Push通知テスト",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
